@@ -4,9 +4,17 @@
 #include<sstream>
 using namespace std;
 
+struct process{
+	int id;
+	int value;
+	int atime;
+	int unit_count;
+	};	
+	
 int process_file_creat();
-
 int process_file_write(int file_descriptor);
+void read_dispatch(int fd);
+int process_file_read(int fd);
 
 int process_file_open(){
 
@@ -17,7 +25,7 @@ int process_file_open(){
 
 	if (user_input == "R"){
 		cout<<"Opening process file"<<endl;
-		int fd=open("process_file.txt",O_RDONLY);
+		int fd=open("process_file.txt",O_RDONLY,0777);
 		
 		if (fd == -1){
 			cout<<"Such file doesn't exist"<<endl<<"For creating new process file press C or Press any key to exit"<<endl;
@@ -35,7 +43,7 @@ int process_file_open(){
 		else{
 
 			cout<<"File is open"<<endl;
-			return fd;
+			process_file_read(fd);
 		}
 		}
 
@@ -117,8 +125,24 @@ int process_file_write(int file_descriptor){
 
 	}
 
-}	
+	}
 
+void read_dispatch(int fd){
+	process waiting_queue[1];
+	
+}	
+int process_file_read (int file_descriptor){
+	cout<<"Process file is being read"<<endl;
+	char buffer[3];
+	stringstream ss;
+	int process_attribute_value;
+	ssize_t bytes_read=read(file_descriptor,buffer,3);
+	cout<<"Buffer value"<<buffer[0]<<buffer[1]<<buffer[2]<<endl;
+	ss<< buffer[2];
+	ss >>process_attribute_value;
+	cout<<"Value that is read from file"<<process_attribute_value<<endl<<"Bytes read"<<bytes_read<<endl;
+	return 0;
+	}
 	
 
 		
@@ -126,7 +150,7 @@ int process_file_write(int file_descriptor){
 int main(){
 
 	int inp_file=process_file_open();
-
+	
 	cout<<"File descritor"<<inp_file<<endl;
 
 	
