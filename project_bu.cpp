@@ -15,6 +15,7 @@ int process_file_creat();
 int process_file_write(int file_descriptor);
 void read_dispatch(int fd);
 int process_file_read(int fd);
+int string_len(int fd);
 
 int process_file_open(){
 
@@ -133,6 +134,8 @@ void read_dispatch(int fd){
 }	
 int process_file_read (int file_descriptor){
 	cout<<"Process file is being read"<<endl;
+	int buffer_size=string_len(file_descriptor);
+	cout<<"Size of the string"<<buffer_size<<endl;
 	char buffer[3];
 	stringstream ss;
 	int process_attribute_value;
@@ -143,7 +146,22 @@ int process_file_read (int file_descriptor){
 	cout<<"Value that is read from file"<<process_attribute_value<<endl<<"Bytes read"<<bytes_read<<endl;
 	return 0;
 	}
-	
+int string_len(int fd){
+	char buffer[1];
+	int count;
+	while (read(fd,buffer,sizeof(buffer))>0){
+		if (buffer[0] == '\n'){
+			
+			return count;
+			}
+		else if (buffer[0] != '\t' ){
+			cout<<buffer<<endl;
+			count=count+1;
+		}
+		
+	}
+	return 0;
+}
 
 		
 
