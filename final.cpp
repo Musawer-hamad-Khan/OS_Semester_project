@@ -228,9 +228,14 @@ int process_file_read(const char *filename) {
       p.unit_4 = attribute_array[8];
       p.unit_5 = attribute_array[9];
       waiting_queue.push(p);
+      cout<<"waiting queue size is "<<waiting_queue_size<<endl;
       if (waiting_queue_size == 5){
-        waiting_queue_size=0;
         dispatch(waiting_queue);
+        for (int process=0; process <=waiting_queue_size; process++){
+        	waiting_queue.pop();	
+        	}
+        waiting_queue_size=0;	
+        
       }
       else{
       	  waiting_queue_size++;
@@ -275,7 +280,7 @@ int unit_1(queue<process>& inputqueue){
   queue<process>unit_queue= inputqueue;
   process p[5]; 
   int index=0;
-  for (int process=0; process<5; process++){
+  for (int process=0; process<=5; process++){
       if (unit_queue.front().unit_1>0){
       	//cout<<"Unittttt queueeeeee value "<<unit_queue.front().id<<endl;
         p[index]=unit_queue.front();
@@ -322,7 +327,7 @@ int unit_2(queue<process>& inputqueue) {
   queue<process>unit_queue= inputqueue;
   process p[5]; 
   int index=0;
-  for (int process=0; process<5; process++){
+  for (int process=0; process<=5; process++){
       if (unit_queue.front().unit_2>0){
       	//cout<<"Unittttt queueeeeee value "<<unit_queue.front().id<<endl;
         p[index]=unit_queue.front();
@@ -361,7 +366,7 @@ int unit_3(queue<process>& inputqueue) {
   queue<process>unit_queue= inputqueue;
   process p[5]; 
   int index=0;
-  for (int process=0; process<5; process++){
+  for (int process=0; process<=5; process++){
       if (unit_queue.front().unit_3>0){
       	//cout<<"Unittttt queueeeeee value "<<unit_queue.front().id<<endl;
         p[index]=unit_queue.front();
@@ -390,7 +395,7 @@ int unit_4(queue<process>& inputqueue) {
   queue<process>unit_queue= inputqueue;
   process p[5]; 
   int index=0;
-  for (int process=0; process<5; process++){
+  for (int process=0; process<=5; process++){
       if (unit_queue.front().unit_4>0){
       	//cout<<"Unittttt queueeeeee value "<<unit_queue.front().id<<endl;
         p[index]=unit_queue.front();
